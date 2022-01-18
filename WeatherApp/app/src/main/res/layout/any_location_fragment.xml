@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/localeTV"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_corner_grey_whiteborder"
+            android:fadingEdge="none"
+            android:gravity="center|center_horizontal"
+            android:hint="Enter a city"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/weatherContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_corner_grey_whiteborder"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/localeTV">
+
+            <TextView
+                android:id="@+id/WeatherDescriptor"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TemperatureTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="87dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Degrees"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/WindSpeedTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Windspeed"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="23sp" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/windGustTV"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="56dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:gravity="center_horizontal|center_vertical"-->
+                <!--                    android:text="Windgust"-->
+                <!--                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+                <!--                    android:textSize="23sp" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="40dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="40dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="165dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/day1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_blue_top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#BC628AC8"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#BC628AC8"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_blue_right"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_blue_top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#BC628AC8"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_blue_right"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ForecastTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="day"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ForecastDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ForecastImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/cloudy" />
+
+                        <TextView
+                            android:id="@+id/ForecastMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/ForecastMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:gravity="center"
+                            android:text="TextView"
+                            app:layout_constraintStart_toStartOf="parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"></LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
