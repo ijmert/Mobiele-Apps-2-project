@@ -26,6 +26,8 @@ public class ScreenslideCurrentLocationFragment extends Fragment {
         return rootView;
     }
 
-
-
+    public void updateThisFragment(float lat, float lon)
+    {
+        FragmentUpdater.updateFragment(lat, lon, this.getView(), false, getActivity());
+    }
 }
