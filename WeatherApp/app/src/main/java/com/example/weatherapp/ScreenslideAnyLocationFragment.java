@@ -6,12 +6,15 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ScreenslideAnyLocationFragment extends Fragment {
+    
+    String TAG = "AnyLocFrag";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class ScreenslideAnyLocationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupAutoCompleteView();
+        Log.d(TAG, "onViewCreated: view created with actv");
     }
 
     private void setupAutoCompleteView()
@@ -59,7 +65,32 @@ public class ScreenslideAnyLocationFragment extends Fragment {
                 FragmentUpdater.updateFragment(latlon[0], latlon[1], getView(), true, getActivity());
                 View v = (View)(getView().findViewById(R.id.weatherContainer));
                 v.setVisibility(View.VISIBLE);
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                actv.clearFocus();
             }
         });
+
+        actv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String city = (String)adapter.getItem(0);
+                float[] latlon = Utils.getLatLonFromCity(city, getActivity());
+                FragmentUpdater.updateFragment(latlon[0], latlon[1], getView(), true, getActivity());
+                View weatherContainer = (View)(getView().findViewById(R.id.weatherContainer));
+                weatherContainer.setVisibility(View.VISIBLE);
+                actv.setText(city);
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                actv.clearFocus();
+                return true;
+            }
+        });
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        actv.clearFocus();
     }
 }

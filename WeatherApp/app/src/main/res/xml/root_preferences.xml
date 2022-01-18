@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:defaultValue="true"
+        android:entries="@array/distanceunits_entries"
+        android:entryValues="@array/distanceunits_values"
+        android:key="@string/Distance_Units_Key"
+        android:title="Distance units" />
+    <ListPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="true"
+        android:entries="@array/temperatureunits_entries"
+        android:entryValues="@array/temperatureunits_values"
+        android:key="@string/Temperature_Units_Key"
+        android:title="Temperature units" />
+
+</PreferenceScreen>

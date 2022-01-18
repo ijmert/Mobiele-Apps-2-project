@@ -15,6 +15,29 @@ import java.util.List;
 import java.util.Locale;
 
 public class Utils {
+
+    public enum TemperatureUnit
+    {
+        Celsius,
+        Fahrenheit
+    }
+
+    public enum DistanceUnit
+    {
+        Empirical,
+        Metric
+    }
+
+    static float ConvertFromCelsiusToFahrenheit(float celsius)
+    {
+        return (celsius * 9 / 5 + 32);
+    }
+
+    static float ConvertFromKmToMiles(float km)
+    {
+        return (float)(km / 1.6);
+    }
+
     static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
         try {

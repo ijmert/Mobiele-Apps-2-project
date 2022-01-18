@@ -27,6 +27,7 @@
             android:fadingEdge="none"
             android:gravity="center|center_horizontal"
             android:hint="Enter a city"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

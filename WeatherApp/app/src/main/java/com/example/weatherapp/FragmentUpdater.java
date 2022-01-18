@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.Request;
@@ -97,7 +99,10 @@ public class FragmentUpdater {
                     {
                         Log.d(TAG, response);
                         WeatherData wd = parseJsonToWeatherData(response);
-                        updateViewWithWeatherData(fragmentView, wd);
+                        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(context);
+                        String TU = sPref.getString(context.getString(R.string.Temperature_Units_Key), "C");
+                        String DU = sPref.getString(context.getString(R.string.Distance_Units_Key), "Km");
+                        updateViewWithWeatherData(fragmentView, wd, TU, DU);
                         getWeatherForecastAndUpdateFragment(latitude, longitude, fragmentView, context);
                     }
                 },
@@ -138,7 +143,7 @@ public class FragmentUpdater {
 
     }
 
-    public static void updateViewWithWeatherData(View view, WeatherData wd)
+    public static void updateViewWithWeatherData(View view, WeatherData wd, String TU, String DU)
     {
         TextView tv;
         tv = (TextView)view.findViewById(R.id.WeatherDescriptor);
@@ -166,11 +171,28 @@ public class FragmentUpdater {
                 break;
         }
         tv = (TextView)view.findViewById(R.id.TemperatureTV);
-        tv.setText(String.format("%.1f °C", wd.temperature));
+        switch (TU)
+        {
+            case "C":
+                tv.setText(String.format("%.1f °C", wd.temperature));
+                break;
+            case "F":
+                float fahrenheit = Utils.ConvertFromCelsiusToFahrenheit(wd.temperature);
+                tv.setText(String.format("%.1f °F", fahrenheit));
+                break;
+        }
         tv = (TextView)view.findViewById(R.id.WindSpeedTV);
-        tv.setText(String.format("Windspeed of %.1f km/h %s", wd.windSpeed, wd.windDirection));
-//        tv = (TextView)view.findViewById(R.id.windGustTV);
-//        tv.setText(String.format("Windgusts of %.1f km/h", wd.windGust));
+        switch (DU)
+        {
+            case "Km":
+                tv.setText(String.format("Windspeed of %.1f km/h %s", wd.windSpeed, wd.windDirection));
+                break;
+            case "Mi":
+                float miles = Utils.ConvertFromKmToMiles(wd.windSpeed);
+                tv.setText(String.format("Windspeed of %.1f mi./h %s", miles, wd.windDirection));
+                break;
+        }
+
 
     }
 
@@ -185,7 +207,9 @@ public class FragmentUpdater {
                     public void onResponse(String response) {
                         Log.d(TAG, response);
                         WeatherForecast wf = parseJsonToWeatherForecast(response);
-                        UpdateFragmentWithForecast(wf, fragmentView);
+                        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(context);
+                        String TU = sPref.getString(context.getString(R.string.Temperature_Units_Key), "C");
+                        UpdateFragmentWithForecast(wf, fragmentView, TU);
 
                     }
                 }, new Response.ErrorListener() {
@@ -228,7 +252,7 @@ public class FragmentUpdater {
 
 
 
-    public static void UpdateFragmentWithForecast(WeatherForecast wf, View fragmentView)
+    public static void UpdateFragmentWithForecast(WeatherForecast wf, View fragmentView, String TU)
     {
         int[] daysWidgetResources = new int[]{R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
         for (int i = 0; i<7; i++)
@@ -258,8 +282,17 @@ public class FragmentUpdater {
                     ((ImageView)dayWidgetView.findViewById(R.id.ForecastImage)).setImageResource(R.drawable.mist_icon);
                     break;
             }
-            ((TextView)dayWidgetView.findViewById(R.id.ForecastMax)).setText(String.format("Max: %.1f °C", wf.maxTemps.get(i+1)));
-            ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Max: %.1f °C", wf.minTemps.get(i+1)));
+            switch (TU)
+            {
+                case "C":
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMax)).setText(String.format("Max: %.1f °C", wf.maxTemps.get(i+1)));
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Max: %.1f °C", wf.minTemps.get(i+1)));
+                    break;
+                case "F":
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMax)).setText(String.format("Max: %.1f °F", Utils.ConvertFromCelsiusToFahrenheit(wf.maxTemps.get(i+1))));
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Max: %.1f °F", Utils.ConvertFromCelsiusToFahrenheit(wf.minTemps.get(i+1))));
+                    break;
+            }
         }
     }
 
