@@ -1,0 +1,325 @@
+Index: app/src/main/java/com/example/weatherapp/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/weatherapp/MainActivity.java b/app/src/main/java/com/example/weatherapp/MainActivity.java
+--- a/app/src/main/java/com/example/weatherapp/MainActivity.java	(date 1641572580892)
++++ b/app/src/main/java/com/example/weatherapp/MainActivity.java	(date 1641572580892)
+@@ -62,13 +62,11 @@
+     private long LOCATION_REFRESH_TIME = 10000;
+     private float LOCATION_REFRESH_DISTANCE = 5;
+     private int NUM_PAGES = 5;
+-    private static final int FINE_LOC_CODE = 1;
+-    private static final int COARSE_LOC_CODE = 2;
+-    private static final int INTERNET_CODE = 3;
++
+     private ViewPager mPager;
+     private ScreenSlidePagerAdapter pagerAdapter;
+     private LocationManager mLocationManager;
+-    private FusedLocationProviderClient fusedLocationClient;
++//    private FusedLocationProviderClient fusedLocationClient;
+     private RequestQueue queue;
+ 
+ 
+@@ -92,21 +90,7 @@
+ //        }
+ //    }
+ 
+-    public void checkPermission() {
+-        // Checking if permission is not granted
+-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
+-        {
+-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOC_CODE);
+-        }
+-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
+-        {
+-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOC_CODE);
+-        }
+-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED)
+-        {
+-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, INTERNET_CODE);
+-        }
+-    }
++
+ 
+     public void updateCurrentLocationFragmentLastLocation() {
+ //        checkRelevantPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, COARSE_LOC_CODE);
+@@ -124,80 +108,83 @@
+                 });
+     }
+ 
+-    public void updateFragment(Location location,View fragmentView, boolean anyLocationFragment)
+-    {
+-        if (location != null) {
+-            Address address = getAddressFromLocation(location);
+-            if (address != null)
+-            {
+-                updateLocaleTextView(address, fragmentView.findViewById(R.id.localeTV));
+-                performAndHandleAPIcalls(location, fragmentView, anyLocationFragment);
+-            }
+-        }
+-    }
++//    public void updateFragment(Location location,View fragmentView, boolean anyLocationFragment)
++//    {
++//        if (location != null) {
++//            Address address = getAddressFromLocation(location);
++//            if (address != null)
++//            {
++//                if (!anyLocationFragment)
++//                {
++//                    updateLocaleTextView(address, fragmentView.findViewById(R.id.localeTV));
++//                }
++//                performAndHandleAPIcalls(location, fragmentView);
++//            }
++//        }
++//    }
+ 
+-    public Address getAddressFromLocation(Location location)
+-    {
+-        Geocoder gcd = new Geocoder(MainActivity.this, Locale.getDefault());
+-        List<Address> addresses = null;
+-        try {
+-            addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-        }
+-        if (addresses.size() > 0)
+-        {
+-            return addresses.get(0);
+-        }
+-        else
+-        {
+-            return null;
+-        }
+-    }
++//    public Address getAddressFromLocation(Location location)
++//    {
++//        Geocoder gcd = new Geocoder(MainActivity.this, Locale.getDefault());
++//        List<Address> addresses = null;
++//        try {
++//            addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
++//        } catch (IOException e) {
++//            e.printStackTrace();
++//        }
++//        if (addresses.size() > 0)
++//        {
++//            return addresses.get(0);
++//        }
++//        else
++//        {
++//            return null;
++//        }
++//    }
+ 
+-    public void updateLocaleTextView(Address address, TextView localeTV)
+-    {
+-        if (address.getLocality() != null)
+-        {
+-            localeTV.setText(address.getLocality());
+-        }
+-        else if (address.getAdminArea() != null)
+-        {
+-            localeTV.setText(address.getAdminArea());
+-        }
+-        else
+-        {
+-            localeTV.setText(address.getCountryName());
+-        }
+-    }
++//    public void updateLocaleTextView(Address address, TextView localeTV)
++//    {
++//        if (address.getLocality() != null)
++//        {
++//            localeTV.setText(address.getLocality());
++//        }
++//        else if (address.getAdminArea() != null)
++//        {
++//            localeTV.setText(address.getAdminArea());
++//        }
++//        else
++//        {
++//            localeTV.setText(address.getCountryName());
++//        }
++//    }
+ 
+-    public void performAndHandleAPIcalls(Location location, View fragmentView, boolean anyLocationFragment)
+-    {
+-        queue = Volley.newRequestQueue(MainActivity.this);
+-        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%.1f&lon=%.1f&appid=cee2abc3b21e4cedaf1b3f0c464cc93f&units=metric", (float)location.getLatitude(), (float)location.getLongitude());
+-        Log.d(TAG, url);
+-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+-                new Response.Listener<String>()
+-                {
+-                    @Override
+-                    public void onResponse(String response)
+-                    {
+-                        Log.d(TAG, response);
+-                        WeatherData wd = parseJsonToWeatherData(response);
+-                        updateViewWithWeatherData(fragmentView, wd, anyLocationFragment);
+-                        getWeatherForecastAndUpdateFragment(location, fragmentView);
+-                    }
+-                },
+-                new Response.ErrorListener()
+-                {
+-                    @Override
+-                    public void onErrorResponse(VolleyError error) {
+-                        Log.d(TAG, error.toString());
+-                        return;
+-                }
+-        });
+-        queue.add(stringRequest);
+-    }
++//    public void performAndHandleAPIcalls(Location location, View fragmentView)
++//    {
++//        queue = Volley.newRequestQueue(MainActivity.this);
++//        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%.1f&lon=%.1f&appid=cee2abc3b21e4cedaf1b3f0c464cc93f&units=metric", (float)location.getLatitude(), (float)location.getLongitude());
++//        Log.d(TAG, url);
++//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
++//                new Response.Listener<String>()
++//                {
++//                    @Override
++//                    public void onResponse(String response)
++//                    {
++//                        Log.d(TAG, response);
++//                        WeatherData wd = parseJsonToWeatherData(response);
++//                        updateViewWithWeatherData(fragmentView, wd);
++//                        getWeatherForecastAndUpdateFragment(location, fragmentView);
++//                    }
++//                },
++//                new Response.ErrorListener()
++//                {
++//                    @Override
++//                    public void onErrorResponse(VolleyError error) {
++//                        Log.d(TAG, error.toString());
++//                        return;
++//                }
++//        });
++//        queue.add(stringRequest);
++//    }
+ 
+ 
+     public WeatherData parseJsonToWeatherData(String json)
+@@ -226,44 +213,41 @@
+ 
+     }
+ 
+-    public void updateViewWithWeatherData(View view, WeatherData wd, boolean anyLocationFragment)
+-    {
+-        TextView tv;
+-        if (!anyLocationFragment)
+-        {
+-            tv = (TextView)view.findViewById(R.id.WeatherDescriptor);
+-            tv.setText(wd.descriptor);
+-        }
+-        switch(wd.descriptor)
+-        {
+-            case "Clouds":
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.cloudy);
+-                break;
+-            case "Thunderstorm":
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.lightning);
+-                break;
+-            case "Rain":
+-            case "Drizzle":
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.rainy);
+-                break;
+-            case "Snow":
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.snow_icon);
+-                break;
+-            case "Clear":
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.sunny);
+-                break;
+-            default:
+-                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.rainy);
+-                break;
+-        }
+-        tv = (TextView)view.findViewById(R.id.TemperatureTV);
+-        tv.setText(String.format("%.1f °C", wd.temperature));
+-        tv = (TextView)view.findViewById(R.id.WindSpeedTV);
+-        tv.setText(String.format("Windspeed of %.1f km/h %s", wd.windSpeed, wd.windDirection));
+-//        tv = (TextView)view.findViewById(R.id.windGustTV);
+-//        tv.setText(String.format("Windgusts of %.1f km/h", wd.windGust));
+-
+-    }
++//    public void updateViewWithWeatherData(View view, WeatherData wd)
++//    {
++//        TextView tv;
++//        tv = (TextView)view.findViewById(R.id.WeatherDescriptor);
++//        tv.setText(wd.descriptor);
++//        switch(wd.descriptor)
++//        {
++//            case "Clouds":
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.cloudy);
++//                break;
++//            case "Thunderstorm":
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.lightning);
++//                break;
++//            case "Rain":
++//            case "Drizzle":
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.rainy);
++//                break;
++//            case "Snow":
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.snow_icon);
++//                break;
++//            case "Clear":
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.sunny);
++//                break;
++//            default:
++//                ((ImageView)view.findViewById(R.id.bgImage)).setImageResource(R.drawable.rainy);
++//                break;
++//        }
++//        tv = (TextView)view.findViewById(R.id.TemperatureTV);
++//        tv.setText(String.format("%.1f °C", wd.temperature));
++//        tv = (TextView)view.findViewById(R.id.WindSpeedTV);
++//        tv.setText(String.format("Windspeed of %.1f km/h %s", wd.windSpeed, wd.windDirection));
++////        tv = (TextView)view.findViewById(R.id.windGustTV);
++////        tv.setText(String.format("Windgusts of %.1f km/h", wd.windGust));
++//
++//    }
+ 
+     public WeatherForecast getWeatherForecastAndUpdateFragment(Location location, View fragmentView)
+     {
+@@ -390,31 +374,20 @@
+         mPager.setAdapter(pagerAdapter);
+     }
+ 
+-    private void setupAutoCompleteView()
+-    {
+-        View v = pagerAdapter.fragments.get(0).getView();
++//    private void setupAutoCompleteView()
++//    {
++//        View v = pagerAdapter.fragments.get(0).getView();
++//
++//        AutoCompleteTextView actv =  (AutoCompleteTextView)pagerAdapter.fragments.get(1).getView().findViewById(R.id.localeTV);
++//        List<String> cityNameList = GetCities();
++//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, cityNameList);
++//        actv.setAdapter(adapter);
++//        actv.setThreshold(1);
++//        actv.setTextColor(Color.RED);
++//    }
+ 
+-        AutoCompleteTextView actv =  (AutoCompleteTextView)pagerAdapter.fragments.get(1).getView().findViewById(R.id.localeTV);
+-        List<String> cityNameList = GetCities();
+-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, cityNameList);
+-        actv.setAdapter(adapter);
+-        actv.setThreshold(1);
+-        actv.setTextColor(Color.RED);
+-    }
+ 
+ 
+-    public List<String> GetCities()
+-    {
+-        String jsonString = Utils.getJsonFromAssets(getApplicationContext(), "cities.json");
+-        Gson gson = new Gson();
+-        Type cityListType = new TypeToken<List<City>>(){}.getType();
+-        List<City> cities = gson.fromJson(jsonString, cityListType);
+-        List<String> cityNameList = new ArrayList<String>();
+-        for (City city : cities){
+-            cityNameList.add(city.name);
+-        }
+-        return cityNameList;
+-    }
+ 
+     @Override
+     public void onBackPressed() {
