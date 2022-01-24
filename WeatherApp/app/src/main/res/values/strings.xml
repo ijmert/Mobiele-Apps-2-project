@@ -19,5 +19,6 @@
     <string name="preference_file_key">root_preferences</string>
     <string name="Temperature_Units_Key">Temperature_Units</string>
     <string name="Distance_Units_Key">Distance_Units</string>
+    <string name="Any_Location_CityName_Key">City_Name</string>
 
 </resources>

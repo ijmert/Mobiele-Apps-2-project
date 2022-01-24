@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
 
+//settingsfragment to change some prefernces
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override

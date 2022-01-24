@@ -3,12 +3,13 @@ package com.example.weatherapp;
 import java.util.ArrayList;
 import java.util.List;
 
+//class containing all weather forecast data of a certain place or region
 public class WeatherForecast {
-    List<String> days = new ArrayList<String>();
-    List<Float> minTemps = new ArrayList<Float>();
-    List<Float> maxTemps = new ArrayList<Float>();
-    List<String> descriptions = new ArrayList<String>();
-    List<String> mainDescriptor = new ArrayList<String>();
+    List<String> days = new ArrayList<>();
+    List<Float> minTemps = new ArrayList<>();
+    List<Float> maxTemps = new ArrayList<>();
+    List<String> descriptions = new ArrayList<>();
+    List<String> mainDescriptor = new ArrayList<>();
 
     public List<String> getDays() {
         return days;

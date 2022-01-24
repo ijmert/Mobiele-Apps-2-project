@@ -1,7 +1,8 @@
+
 package com.example.weatherapp;
 
-import java.util.List;
 
+// This class is intended to hold information about any given city. Currently in my app I only use the 'name' field of this class, but the other fields can be used when expanding the app.
 public class City {
     String country;
     String name;

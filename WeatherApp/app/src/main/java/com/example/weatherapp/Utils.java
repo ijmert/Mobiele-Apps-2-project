@@ -14,19 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//class containing static methods for some functionality that was needed in my app
 public class Utils {
 
-    public enum TemperatureUnit
-    {
-        Celsius,
-        Fahrenheit
-    }
-
-    public enum DistanceUnit
-    {
-        Empirical,
-        Metric
-    }
 
     static float ConvertFromCelsiusToFahrenheit(float celsius)
     {
@@ -38,6 +28,8 @@ public class Utils {
         return (float)(km / 1.6);
     }
 
+
+    //a function that gets a json string from a json file.
     static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
         try {
@@ -48,7 +40,7 @@ public class Utils {
             is.read(buffer);
             is.close();
 
-            jsonString = new String(buffer, "UTF-8");
+            jsonString = new String(buffer);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -57,13 +49,14 @@ public class Utils {
         return jsonString;
     }
 
+    //a function that gets all cities from a json file and parses them to the City class.
     static List<String> GetCities(Context context)
     {
         String jsonString = Utils.getJsonFromAssets(context, "cities.json");
         Gson gson = new Gson();
         Type cityListType = new TypeToken<List<City>>(){}.getType();
         List<City> cities = gson.fromJson(jsonString, cityListType);
-        List<String> cityNameList = new ArrayList<String>();
+        List<String> cityNameList = new ArrayList<>();
         for (City city : cities){
             cityNameList.add(city.name);
         }
@@ -71,6 +64,7 @@ public class Utils {
     }
 
 
+    //a function that gets the latitude and longitude from a city name.
     static float[] getLatLonFromCity(String cityname, Context context)
     {
         Geocoder gc = new Geocoder(context, Locale.getDefault());

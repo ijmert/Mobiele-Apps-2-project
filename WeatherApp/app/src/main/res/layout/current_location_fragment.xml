@@ -10,18 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/ic_launcher_background" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/FragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/localeTV"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/rounded_corner_grey_whiteborder"
             android:fadingEdge="none"
@@ -29,13 +31,14 @@
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_corner_grey_whiteborder"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,48 +55,26 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="20sp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/TemperatureTV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Degrees"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-                <TextView
-                    android:id="@+id/TemperatureTV"
-                    android:layout_width="match_parent"
-                    android:layout_height="87dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="Degrees"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/WindSpeedTV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/WindSpeedTV"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="Windspeed"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="23sp" />
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/windGustTV"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="56dp"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:gravity="center_horizontal|center_vertical"-->
-                <!--                    android:text="Windgust"-->
-                <!--                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
-                <!--                    android:textSize="23sp" />-->
-            </LinearLayout>
+                android:layout_height="56dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Windspeed"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="23sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="459dp"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingTop="40dp"
@@ -102,7 +83,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="165dp"
+                    android:layout_height="118dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 

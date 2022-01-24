@@ -1,11 +1,12 @@
 package com.example.weatherapp;
 
+
+//class containing all current weather data of a given place.
 public class WeatherData {
     public float temperature;
     public String descriptor;
     public float windSpeed;
     public int windDeg;
-//    public float windGust;
     public String windDirection;
 
     public String getWindDirection() {
@@ -15,14 +16,6 @@ public class WeatherData {
     public void setWindDirection(String windDirection) {
         this.windDirection = windDirection;
     }
-
-//    public float getWindGust() {
-//        return windGust;
-//    }
-//
-//    public void setWindGust(float windGust) {
-//        this.windGust = windGust;
-//    }
 
     public void setWindSpeed(float windSpeed) {
         this.windSpeed = windSpeed;
