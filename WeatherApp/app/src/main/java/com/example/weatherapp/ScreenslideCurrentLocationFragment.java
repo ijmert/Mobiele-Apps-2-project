@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class ScreenslideCurrentLocationFragment extends Fragment {
     @Override //when the app is resumed we resume receiving location updates
     public void onResume() {
         super.onResume();
-        checkPermission(); //check if we have permission to access location and internet, and if not, ask permission
+        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, FINE_LOC_CODE); //check if we have permission to access location and internet, and if not, ask permission
         LocationManager mLocationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE); // initialize location manager.
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener); //request location updates upon which mLocationListener will be called.
         updateCurrentLocationFragmentLastLocation();//when the app resumes we get the last known location and call on the api to get weather information on it
@@ -103,33 +104,26 @@ public class ScreenslideCurrentLocationFragment extends Fragment {
     public void setupLocationManager()
     {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity()); //setup the fused location client so that we can get the last location in updateCurrentLocationFragmentLastLocation
-        checkPermission(); //check if we have permission to access location and internet, and if not, ask permission
+        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, FINE_LOC_CODE); //check if we have permission to access location and internet, and if not, ask permission
         LocationManager mLocationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE); // initialize location manager.
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener); //request location updates upon which mLocationListener will be called.
         Log.d(TAG, "setupLocationManager: ");
     }
 
-    public void checkPermission() {
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
+
+
+    public void checkPermission(String permission, int code) {
+        if (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_DENIED)
         {
-            //if not granted, ask permission.
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOC_CODE);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, code);
         }
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOC_CODE);
-        }
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, INTERNET_CODE);
-        }
+        while(ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_DENIED){}
     }
 
 
     //gets last location and updates fragment with weather information about last location.
     public void updateCurrentLocationFragmentLastLocation() {
-        checkPermission();
+        checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, COARSE_LOC_CODE);
         fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
