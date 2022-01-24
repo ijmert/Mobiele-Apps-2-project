@@ -86,7 +86,6 @@ public class main_fragment extends Fragment {
         switch (item.getItemId())
         {
             case R.id.menu_settings:
-
                 NavHostFragment.findNavController(this).navigate(R.id.action_main_fragment_to_settingsFragment);
                 return true;
         }

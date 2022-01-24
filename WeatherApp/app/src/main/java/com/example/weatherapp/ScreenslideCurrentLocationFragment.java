@@ -38,7 +38,7 @@ public class ScreenslideCurrentLocationFragment extends Fragment {
     String TAG = "currentlocfrag";
     //both the LOCATION_REFRESH_TIME must have passed AND the device must have moved LOCATION_REFRESH_DISTANCE for the app to update its location
     private long LOCATION_REFRESH_TIME = 10000;
-    private float LOCATION_REFRESH_DISTANCE = 5;
+    private float LOCATION_REFRESH_DISTANCE = 0;
 
     //these are just codes that have to be used for permissions
     private static final int FINE_LOC_CODE = 1;
@@ -75,9 +75,19 @@ public class ScreenslideCurrentLocationFragment extends Fragment {
         Log.d(TAG, "onCreate");
     }
 
-    @Override
+    @Override //When the app is paused we stop receiving location updates and triggering the listener.
+    public void onPause() {
+        super.onPause();
+        LocationManager mLocationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager.removeUpdates(mLocationListener);
+    }
+
+    @Override //when the app is resumed we resume receiving location updates
     public void onResume() {
         super.onResume();
+        checkPermission(); //check if we have permission to access location and internet, and if not, ask permission
+        LocationManager mLocationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE); // initialize location manager.
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener); //request location updates upon which mLocationListener will be called.
         updateCurrentLocationFragmentLastLocation();//when the app resumes we get the last known location and call on the api to get weather information on it
         Log.d(TAG, "onResume: at end, did updateCurrentLocationFragmentLastLocation");
     }

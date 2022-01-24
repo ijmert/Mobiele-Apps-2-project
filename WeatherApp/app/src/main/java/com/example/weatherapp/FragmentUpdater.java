@@ -306,11 +306,11 @@ public class FragmentUpdater {
                 case "C":
                     String bla = String.format("Max: %.1f °C", wf.maxTemps.get(i+1));
                     ((TextView)dayWidgetView.findViewById(R.id.ForecastMax)).setText(String.format("Max: %.1f °C", wf.maxTemps.get(i+1)));
-                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Max: %.1f °C", wf.minTemps.get(i+1)));
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Min: %.1f °C", wf.minTemps.get(i+1)));
                     break;
                 case "F":
                     ((TextView)dayWidgetView.findViewById(R.id.ForecastMax)).setText(String.format("Max: %.1f °F", Utils.ConvertFromCelsiusToFahrenheit(wf.maxTemps.get(i+1))));
-                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Max: %.1f °F", Utils.ConvertFromCelsiusToFahrenheit(wf.minTemps.get(i+1))));
+                    ((TextView)dayWidgetView.findViewById(R.id.ForecastMin)).setText(String.format("Min: %.1f °F", Utils.ConvertFromCelsiusToFahrenheit(wf.minTemps.get(i+1))));
                     break;
             }
         }
